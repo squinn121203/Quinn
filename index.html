@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>电子荣誉证书 · 宁波大学小学教育平安喜乐小组</title>
+<style>
+/* ===================== 基础 ===================== */
+:root{
+  --navy:#12315c;
+  --navy-2:#1e4a86;
+  --gold:#c9a227;
+  --red:#c62828;
+  --ink:#2b3444;
+  --muted:#8a94a6;
+  --line:#cfd8e6;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:
+    radial-gradient(1100px 620px at 50% -10%, #f4f8fd 0%, rgba(244,248,253,0) 62%),
+    #e8edf5;
+  color:#1f2937;
+  font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Helvetica Neue",Arial,sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===================== 顶部标题栏 ===================== */
+.topbar{
+  padding:16px 22px 4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.topbar .dot{
+  width:11px;height:11px;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy-2),var(--navy));
+  box-shadow:0 0 0 4px rgba(30,74,134,.10);
+  flex:none;
+}
+.topbar h1{
+  margin:0;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  color:var(--navy);
+}
+.topbar small{
+  font-size:11.5px;
+  color:var(--muted);
+  letter-spacing:.6px;
+}
+
+/* ===================== 舞台 ===================== */
+.stage{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:14px 16px 40px;
+  gap:20px;
+}
+
+/* ===================== 表单卡片 ===================== */
+.form-card{
+  width:min(92vw, 430px);
+  margin-top:4vh;
+  background:#fff;
+  border-radius:20px;
+  padding:34px 30px 30px;
+  box-shadow:
+    0 24px 56px rgba(18,49,92,.13),
+    0 2px 6px rgba(18,49,92,.06);
+  border:1px solid rgba(18,49,92,.06);
+  animation:cardIn .55s cubic-bezier(.2,.85,.3,1.1) both;
+}
+@keyframes cardIn{
+  from{ opacity:0; transform:translateY(18px) scale(.97); }
+  to  { opacity:1; transform:none; }
+}
+body.showing-cert .form-card{ display:none; }
+
+.form-card .fc-head{ text-align:center; margin-bottom:26px; }
+.form-card .fc-badge{
+  width:52px;height:52px;
+  margin:0 auto 14px;
+  border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#eef4fd,#dfe9f8);
+  border:1px solid rgba(30,74,134,.14);
+}
+.form-card .fc-badge::after{
+  content:"★";
+  font-size:22px;
+  color:var(--gold);
+  line-height:1;
+}
+.form-card h2{
+  margin:0 0 6px;
+  font-size:19px;
+  letter-spacing:1.2px;
+  color:var(--navy);
+}
+.form-card .fc-sub{
+  margin:0;
+  font-size:12.5px;
+  color:var(--muted);
+  letter-spacing:.5px;
+}
+
+.form-card .field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  margin-bottom:16px;
+}
+.form-card .field > span{
+  font-size:12.5px;
+  color:#5b6b82;
+  letter-spacing:.5px;
+  padding-left:3px;
+}
+.form-card input{
+  height:48px;
+  width:100%;
+  padding:0 15px;
+  font-size:16px;
+  font-family:inherit;
+  color:#12203a;
+  background:#f8fafd;
+  border:1px solid var(--line);
+  border-radius:13px;
+  outline:none;
+  transition:border-color .2s, box-shadow .2s, background .2s;
+}
+.form-card input::placeholder{ color:#b3bdcc; }
+.form-card input:focus{
+  border-color:var(--navy-2);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(30,74,134,.12);
+}
+
+.btn-print{
+  width:100%;
+  height:52px;
+  margin-top:8px;
+  font-size:16px;
+  font-family:inherit;
+  font-weight:700;
+  letter-spacing:2px;
+  color:#fff;
+  border:none;
+  border-radius:13px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#245694 0%, #12315c 100%);
+  box-shadow:0 10px 24px rgba(18,49,92,.28);
+  transition:transform .16s, box-shadow .22s;
+}
+.btn-print:hover{ transform:translateY(-1px); box-shadow:0 14px 30px rgba(18,49,92,.34); }
+.btn-print:active{ transform:translateY(1px) scale(.995); }
+
+.form-card .fc-tip{
+  margin:16px 0 0;
+  text-align:center;
+  font-size:11.5px;
+  line-height:1.7;
+  color:#a2adbd;
+  letter-spacing:.3px;
+}
+
+/* ===================== 打印单元 ===================== */
+.print-unit{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+}
+body.showing-cert .print-unit{
+  display:flex;
+  animation:unitIn .5s cubic-bezier(.2,.85,.3,1.05) both;
+}
+@keyframes unitIn{
+  from{ opacity:0; transform:translateY(20px) scale(.98); }
+  to  { opacity:1; transform:none; }
+}
+
+/* ---- 虚拟打印机 ---- */
+.printer{
+  position:relative;
+  z-index:5;
+  width:100%;
+  border-radius:14px 14px 5px 5px;
+  background:linear-gradient(180deg,#2f63a8 0%, #1c4275 46%, #0e2544 100%);
+  box-shadow:
+    0 16px 34px rgba(18,49,92,.30),
+    inset 0 1px 0 rgba(255,255,255,.18);
+  overflow:hidden;
+}
+.printer::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1.5px;
+  background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.42) 50%, rgba(255,255,255,0) 100%);
+}
+.printer-face{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 18px 11px;
+}
+.printer-label{
+  font-family:"Consolas","Menlo","Courier New",monospace;
+  font-size:10px;
+  letter-spacing:2.4px;
+  color:rgba(255,255,255,.44);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.leds{ display:flex; gap:7px; flex:none; }
+.led{ width:7px;height:7px;border-radius:50%;display:block; }
+.led-power{
+  background:#6fe0a0;
+  box-shadow:0 0 7px rgba(111,224,160,.9);
+}
+.led-status{
+  background:#3d5675;
+  transition:background .3s, box-shadow .3s;
+}
+.printer.working .led-status{
+  background:#ffd166;
+  box-shadow:0 0 10px rgba(255,209,102,.95);
+  animation:ledBlink .5s ease-in-out infinite alternate;
+}
+@keyframes ledBlink{ from{opacity:.25;} to{opacity:1;} }
+
+.printer-slot{
+  position:relative;
+  height:16px;
+  background:linear-gradient(180deg,#05101f 0%, #0b1e36 55%, #183454 100%);
+  box-shadow:inset 0 5px 10px rgba(0,0,0,.78);
+  overflow:hidden;
+}
+.slot-glow{
+  position:absolute;
+  top:0;bottom:0;
+  width:72px;
+  left:-72px;
+  opacity:0;
+  background:linear-gradient(90deg, rgba(227,199,106,0) 0%, rgba(227,199,106,.9) 50%, rgba(227,199,106,0) 100%);
+}
+.printer.working .slot-glow{
+  opacity:1;
+  animation:slotSweep 1.15s linear infinite;
+}
+@keyframes slotSweep{ from{left:-72px;} to{left:100%;} }
+
+.printer.working{ animation:printerShake .13s linear infinite; }
+@keyframes printerShake{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(.7px);}
+  100%{transform:translateY(0);}
+}
+
+/* ---- 纸张区域 ---- */
+.paper-area{
+  position:relative;
+  margin-top:-11px;
+  z-index:1;
+}
+.cert-scaler{
+  position:absolute;
+  top:0;left:0;
+  transform-origin:top left;
+  will-change:transform;
+}
+.cert-wrap{
+  position:relative;
+  width:297mm;
+  height:210mm;
+}
+.paper-edge{
+  position:absolute;
+  left:0;right:0;top:0;
+  height:1px;
+  background:rgba(18,49,92,.30);
+  box-shadow:0 4px 12px rgba(18,49,92,.20);
+  opacity:0;
+  z-index:6;
+  pointer-events:none;
+}
+
+/* ===================== 证书主体 ===================== */
+.certificate{
+  position:absolute;
+  inset:0;
+  background:#fff;
+  overflow:hidden;
+  border-radius:4px;
+  box-shadow:0 26px 62px rgba(18,49,92,.20), 0 3px 10px rgba(18,49,92,.07);
+  color:var(--ink);
+  font-family:"Songti SC","STSong","SimSun","宋体",serif;
+  will-change:clip-path;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+.cert-frame{
+  position:absolute;
+  inset:8mm;
+  border:1.5px solid rgba(18,49,92,.82);
+  border-radius:3px;
+  pointer-events:none;
+}
+.cert-frame::before{
+  content:"";
+  position:absolute;
+  inset:2.2mm;
+  border:1px solid rgba(201,162,39,.72);
+  border-radius:2px;
+}
+.cert-frame::after{
+  content:"";
+  position:absolute;
+  inset:-3px;
+  border-radius:4px;
+  background:
+    linear-gradient(var(--gold),var(--gold)) left top / 14px 3px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) left top / 3px 14px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right top / 14px 3px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right top / 3px 14px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) left bottom / 14px 3px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) left bottom / 3px 14px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right bottom / 14px 3px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right bottom / 3px 14px no-repeat;
+  opacity:.85;
+}
+.cert-content{
+  position:absolute;
+  inset:0;
+  padding:18mm 24mm 16mm;
+  display:flex;
+  flex-direction:column;
+}
+
+.cert-head{ text-align:center; }
+.cert-org{
+  margin:0 0 5mm;
+  font-size:12px;
+  letter-spacing:5px;
+  text-indent:5px;
+  color:#96a1b3;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+}
+.cert-title{
+  margin:0;
+  font-family:"STKaiti","KaiTi","楷体","SimSun",serif;
+  font-size:62px;
+  line-height:1.12;
+  font-weight:700;
+  letter-spacing:17px;
+  text-indent:17px;
+  color:var(--navy);
+}
+.cert-sub{
+  margin:3mm 0 0;
+  font-family:"Times New Roman",Georgia,serif;
+  font-size:10.5px;
+  letter-spacing:6px;
+  text-indent:6px;
+  color:var(--gold);
+}
+.cert-rule{
+  display:flex;
+  align-items:center;
+  gap:3mm;
+  width:126mm;
+  margin:6mm auto 0;
+}
+.cert-rule i{
+  flex:1;height:1px;
+  background:linear-gradient(90deg, rgba(201,162,39,0) 0%, rgba(201,162,39,.95) 100%);
+}
+.cert-rule i:last-child{
+  background:linear-gradient(270deg, rgba(201,162,39,0) 0%, rgba(201,162,39,.95) 100%);
+}
+.cert-rule b{ color:var(--gold); font-size:9px; line-height:1; }
+
+.cert-body{
+  margin:16mm 0 0;
+  font-family:"STKaiti","KaiTi","楷体","Songti SC","SimSun",serif;
+  font-size:23px;
+  line-height:2.2;
+  letter-spacing:.6px;
+  color:#2b3444;
+  text-align:justify;
+  text-indent:2em;
+}
+.cert-name{
+  display:inline-block;
+  min-width:110px;
+  padding:0 10px 3px;
+  margin:0 5px;
+  text-align:center;
+  white-space:nowrap;
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:3px;
+  color:var(--navy);
+  border-bottom:2.5px solid var(--gold);
+  vertical-align:baseline;
+}
+.cert-award{
+  padding:0 4px;
+  font-weight:700;
+  color:var(--navy);
+  background:linear-gradient(180deg, rgba(201,162,39,0) 60%, rgba(201,162,39,.34) 60%);
+}
+
+.cert-sign{
+  position:relative;
+  margin-top:auto;
+  min-height:46mm;
+  padding-top:6mm;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+}
+.sign-left{ padding-bottom:16mm; }
+.sign-left p,
+.sign-right p{
+  margin:0;
+  font-size:18px;
+  line-height:1.65;
+  letter-spacing:.6px;
+  color:#2b3444;
+}
+.sign-right{
+  position:relative;
+  text-align:right;
+  padding-right:42mm;
+}
+.sign-right p{ margin-bottom:2mm; font-size:17.5px; }
+.label{ color:#8a94a6; }
+.cert-no{
+  font-family:"Consolas","Menlo","Courier New",monospace !important;
+  font-size:15px !important;
+  letter-spacing:1.6px !important;
+  color:#5b6b82 !important;
+}
+
+/* ---- 电子印章（纯 CSS） ---- */
+.seal{
+  position:absolute;
+  right:0;
+  bottom:-4mm;
+  width:34mm;
+  height:34mm;
+  border-radius:50%;
+  border:3px solid rgba(198,40,40,.78);
+  background:radial-gradient(circle, rgba(198,40,40,.07) 0%, rgba(198,40,40,.03) 62%, rgba(198,40,40,0) 100%);
+  display:grid;
+  place-items:center;
+  transform:rotate(-13deg);
+  opacity:.82;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+.seal::before{
+  content:"";
+  position:absolute;
+  inset:2.6mm;
+  border-radius:50%;
+  border:1px solid rgba(198,40,40,.52);
+}
+.seal-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  line-height:1.05;
+  font-family:"STKaiti","KaiTi","楷体","SimHei","Microsoft YaHei",sans-serif;
+  font-weight:700;
+  font-size:19px;
+  letter-spacing:1.5px;
+  text-indent:1.5px;
+  color:rgba(198,40,40,.9);
+}
+@keyframes stampIn{
+  0%  { transform:rotate(-13deg) scale(2.6); opacity:0; }
+  55% { transform:rotate(-13deg) scale(.9);  opacity:.82; }
+  75% { transform:rotate(-13deg) scale(1.06); opacity:.82; }
+  100%{ transform:rotate(-13deg) scale(1);   opacity:.82; }
+}
+.seal.stamping{ animation:stampIn .85s cubic-bezier(.22,.9,.3,1.15) both; }
+
+@keyframes certFlash{
+  0%  { box-shadow:0 0 0 0 rgba(201,162,39,.55), 0 26px 62px rgba(18,49,92,.20); }
+  100%{ box-shadow:0 0 0 16px rgba(201,162,39,0), 0 26px 62px rgba(18,49,92,.20); }
+}
+.certificate.flash{ animation:certFlash .75s ease-out; }
+
+/* ===================== 底部操作条 ===================== */
+.result-bar{
+  display:none;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+  animation:barIn .45s cubic-bezier(.2,.85,.3,1.1) both;
+}
+body.cert-ready .result-bar{ display:flex; }
+@keyframes barIn{
+  from{ opacity:0; transform:translateY(14px); }
+  to  { opacity:1; transform:none; }
+}
+.btn{
+  height:46px;
+  padding:0 26px;
+  font-size:15px;
+  font-family:inherit;
+  font-weight:600;
+  letter-spacing:.8px;
+  border-radius:12px;
+  cursor:pointer;
+  border:1px solid transparent;
+  transition:transform .16s, box-shadow .22s, background .2s, border-color .2s;
+  white-space:nowrap;
+}
+.btn:active{ transform:translateY(1px) scale(.99); }
+.btn-save{
+  color:#fff;
+  background:linear-gradient(135deg,#1f7a4d 0%, #14603a 100%);
+  box-shadow:0 10px 22px rgba(20,96,58,.30);
+}
+.btn-save:hover{ transform:translateY(-1px); box-shadow:0 14px 28px rgba(20,96,58,.36); }
+.btn-again{
+  color:var(--navy);
+  background:#fff;
+  border-color:var(--line);
+}
+.btn-again:hover{ border-color:var(--navy-2); background:#f5f8fd; }
+
+/* ===================== 抖动 & 提示 ===================== */
+@keyframes shakeX{
+  0%,100%{ transform:translateX(0); }
+  18%{ transform:translateX(-6px); }
+  38%{ transform:translateX(6px); }
+  58%{ transform:translateX(-4px); }
+  78%{ transform:translateX(4px); }
+}
+.shake{
+  animation:shakeX .42s ease;
+  border-color:var(--red) !important;
+  box-shadow:0 0 0 4px rgba(198,40,40,.13) !important;
+}
+
+.toast{
+  position:fixed;
+  left:50%;bottom:34px;
+  transform:translate(-50%, 22px);
+  padding:12px 24px;
+  border-radius:999px;
+  background:rgba(18,49,92,.95);
+  color:#fff;
+  font-size:14px;
+  letter-spacing:.6px;
+  box-shadow:0 14px 34px rgba(18,49,92,.36);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  z-index:300;
+  transition:opacity .35s, transform .35s cubic-bezier(.2,.9,.3,1.1), visibility .35s;
+  max-width:86vw;
+  text-align:center;
+}
+.toast.show{
+  opacity:1;
+  visibility:visible;
+  transform:translate(-50%, 0);
+}
+
+/* ===================== 移动端 ===================== */
+@media (max-width: 860px){
+  .topbar{ padding:12px 14px 2px; }
+  .topbar h1{ font-size:15px; letter-spacing:1px; }
+  .topbar small{ display:none; }
+  .stage{ padding:10px 10px 34px; gap:14px; }
+  .form-card{
+    margin-top:2vh;
+    padding:26px 20px 24px;
+    border-radius:18px;
+    width:min(94vw, 430px);
+  }
+  .printer-label{ display:none; }
+  .printer-face{ justify-content:flex-end; padding:11px 14px 9px; }
+  .btn{ padding:0 18px; font-size:14px; height:44px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== 顶部 ===================== -->
+<header class="topbar">
+  <span class="dot"></span>
+  <h1>电子荣誉证书</h1>
+  <small>宁波大学小学教育 · 平安喜乐小组</small>
+</header>
+
+<!-- ===================== 舞台 ===================== -->
+<main class="stage" id="stage">
+
+  <!-- ---------- 输入表单 ---------- -->
+  <section class="form-card" id="formCard">
+    <div class="fc-head">
+      <div class="fc-badge"></div>
+      <h2>填写获奖人信息</h2>
+      <p class="fc-sub">输入后点击「打印证书」查看最终效果</p>
+    </div>
+
+    <label class="field">
+      <span>获奖人姓名</span>
+      <input id="nameInput" type="text" placeholder="请输入姓名" autocomplete="off" maxlength="12">
+    </label>
+
+    <label class="field">
+      <span>学号（证书编号）</span>
+      <input id="idInput" type="text" placeholder="请输入学号" autocomplete="off" inputmode="numeric" maxlength="24">
+    </label>
+
+    <button class="btn-print" id="printBtn" type="button">打 印 证 书</button>
+
+    <p class="fc-tip">回车键可直接更新 · 证书一次只生成一张</p>
+  </section>
+
+  <!-- ---------- 打印机 + 证书 ---------- -->
+  <div class="print-unit" id="printUnit">
+
+    <div class="printer" id="printer">
+      <div class="printer-face">
+        <span class="printer-label">PYXL · 电子证书输出终端</span>
+        <span class="leds">
+          <i class="led led-power"></i>
+          <i class="led led-status" id="ledStatus"></i>
+        </span>
+      </div>
+      <div class="printer-slot">
+        <span class="slot-glow"></span>
+      </div>
+    </div>
+
+    <div class="paper-area" id="paperArea">
+      <div class="cert-scaler" id="certScaler">
+        <div class="cert-wrap" id="certWrap">
+
+          <section class="certificate" id="certificate">
+            <div class="cert-frame"></div>
+
+            <div class="cert-content">
+              <div class="cert-head">
+                <p class="cert-org">宁波大学 · 小学教育</p>
+                <h1 class="cert-title">荣誉证书</h1>
+                <p class="cert-sub">CERTIFICATE OF HONOR</p>
+                <div class="cert-rule"><i></i><b>◆</b><i></i></div>
+              </div>
+
+              <p class="cert-body">
+                兹有<span class="cert-name" id="certName">＿＿＿</span>同学，作为“宁波大学小学教育平安喜乐小组”成员，在语文小组朗诵活动中表现优异，荣获<span class="cert-award">银奖</span>。特发此证，以资鼓励。
+              </p>
+
+              <div class="cert-sign">
+                <div class="sign-left">
+                  <p><span class="label">指导老师：</span>赵静怡</p>
+                </div>
+
+                <div class="sign-right">
+                  <p><span class="label">颁发单位：</span>宁波大学小学教育平安喜乐小组</p>
+                  <p class="sign-date">2026年10月13日</p>
+                  <p class="cert-no"><span class="label">证书编号：</span><span id="certNo">＿＿＿＿＿＿</span></p>
+                </div>
+
+                <div class="seal" id="seal" aria-hidden="true">
+                  <div class="seal-inner">
+                    <span>平安喜</span>
+                    <span>乐小组</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="paper-edge" id="paperEdge"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ---------- 底部操作条 ---------- -->
+  <div class="result-bar" id="resultBar">
+    <button class="btn btn-save" id="saveBtn" type="button">保存为图片</button>
+    <button class="btn btn-again" id="againBtn" type="button">重新填写</button>
+  </div>
+
+</main>
+
+<!-- ===================== 提示条 ===================== -->
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+     一、元素引用 & 全局状态
+     ============================================================ */
+  var stage       = document.getElementById('stage');
+  var formCard    = document.getElementById('formCard');
+  var printUnit   = document.getElementById('printUnit');
+  var printer     = document.getElementById('printer');
+  var paperArea   = document.getElementById('paperArea');
+  var certScaler  = document.getElementById('certScaler');
+  var certWrap    = document.getElementById('certWrap');
+  var certificate = document.getElementById('certificate');
+  var paperEdge   = document.getElementById('paperEdge');
+  var certNameEl  = document.getElementById('certName');
+  var certNoEl    = document.getElementById('certNo');
+  var seal        = document.getElementById('seal');
+  var nameInput   = document.getElementById('nameInput');
+  var idInput     = document.getElementById('idInput');
+  var printBtn    = document.getElementById('printBtn');
+  var saveBtn     = document.getElementById('saveBtn');
+  var againBtn    = document.getElementById('againBtn');
+  var toastEl     = document.getElementById('toast');
+
+  var DEFAULT_NAME = '＿＿＿';
+  var DEFAULT_ID   = '＿＿＿＿＿＿';
+  var STORE_NAME   = 'pyxl_ecert_name_v2';
+  var STORE_ID     = 'pyxl_ecert_id_v2';
+
+  var busy = false;
+  var natW = 0;
+  var natH = 0;
+  var printerH = 52;
+  var toastTimer = null;
+  var currentName = '';
+  var currentId = '';
+
+  /* ============================================================
+     二、通用工具
+     ============================================================ */
+  function sleep(ms) {
+    return new Promise(function (r) { setTimeout(r, ms); });
+  }
+
+  function easeInOutQuad(t) {
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  }
+
+  function shake(el) {
+    el.classList.remove('shake');
+    void el.offsetWidth;
+    el.classList.add('shake');
+    setTimeout(function () { el.classList.remove('shake'); }, 520);
+  }
+
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastEl.classList.remove('show');
+    }, 2800);
+  }
+
+  /* ============================================================
+     三、屏幕自适应缩放
+     ============================================================ */
+  function measure() {
+    natW = certWrap.offsetWidth  || (297 * 96 / 25.4);
+    natH = certWrap.offsetHeight || (210 * 96 / 25.4);
+    printerH = printer.offsetHeight || 52;
+  }
+
+  function fitStage() {
+    if (!natW || !natH) return;
+
+    var availW = stage.clientWidth - 24;
+    var s = availW / natW;
+
+    // 桌面端尽量一屏放下
+    var stageTop = stage.getBoundingClientRect().top;
+    var availH = window.innerHeight - stageTop - 150 - printerH;
+    if (availH > 240) {
+      s = Math.min(s, availH / natH);
+    }
+
+    s = Math.max(0.07, Math.min(s, 1));
+
+    certScaler.style.transform = 'scale(' + s + ')';
+    paperArea.style.width  = (natW * s) + 'px';
+    paperArea.style.height = (natH * s) + 'px';
+  }
+
+  var rafId = null;
+  function requestFit() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(function () {
+      measure();
+      fitStage();
+    });
+  }
+  window.addEventListener('resize', requestFit);
+  window.addEventListener('orientationchange', requestFit);
+
+  /* ============================================================
+     四、证书文字更新
+     ============================================================ */
+  function refreshPreview() {
+    var name = nameInput.value.trim();
+    var id   = idInput.value.trim();
+    certNameEl.textContent = name || DEFAULT_NAME;
+    certNoEl.textContent   = id || DEFAULT_ID;
+  }
+
+  function saveToLocal() {
+    try {
+      localStorage.setItem(STORE_NAME, nameInput.value.trim());
+      localStorage.setItem(STORE_ID, idInput.value.trim());
+    } catch (e) { /* 隐私模式忽略 */ }
+  }
+
+  /* ============================================================
+     五、clip-path 逐帧动画
+     from / to ：底部被裁掉的百分比（0=全显，100=全隐）
+     ============================================================ */
+  function animateClip(from, to, duration, onUpdate) {
+    return new Promise(function (resolve) {
+      var start = performance.now();
+      function frame(now) {
+        var t = Math.min(1, (now - start) / duration);
+        var e = easeInOutQuad(t);
+        var v = from + (to - from) * e;
+        certificate.style.clipPath = 'inset(0 0 ' + v + '% 0)';
+        if (onUpdate) onUpdate(v);
+        if (t < 1) requestAnimationFrame(frame);
+        else resolve();
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  /* ============================================================
+     六、核心流程：打印证书
+     ============================================================ */
+  function runPrint() {
+    if (busy) return;
+
+    var name = nameInput.value.trim();
+    var id   = idInput.value.trim();
+
+    if (!name) { shake(nameInput); nameInput.focus(); return; }
+    if (!id)   { shake(idInput);   idInput.focus();   return; }
+
+    busy = true;
+    printBtn.disabled = true;
+    saveToLocal();
+    refreshPreview();
+
+    currentName = name;
+    currentId   = id;
+
+    // 切换到证书视图
+    document.body.classList.add('showing-cert');
+    document.body.classList.remove('cert-ready');
+
+    // 初始：证书完全被裁掉
+    certificate.style.clipPath = 'inset(0 0 100% 0)';
+    seal.classList.remove('stamping');
+
+    // 测量并适配
+    measure();
+    fitStage();
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+
+        // 1) 打印机预热
+        printer.classList.add('working');
+
+        sleep(620)
+          .then(function () {
+            // 2) 出纸
+            paperEdge.style.opacity = '1';
+            return animateClip(100, 0, 2000, function (v) {
+              paperEdge.style.top = (100 - v) + '%';
+            });
+          })
+          .then(function () {
+            // 3) 出纸完成
+            paperEdge.style.opacity = '0';
+            certificate.style.clipPath = 'none';
+            return sleep(200);
+          })
+          .then(function () {
+            // 4) 打印机收工
+            printer.classList.remove('working');
+            // 5) 盖章
+            seal.classList.remove('stamping');
+            void seal.offsetWidth;
+            seal.classList.add('stamping');
+            return sleep(880);
+          })
+          .then(function () {
+            // 6) 完成
+            document.body.classList.add('cert-ready');
+            printBtn.disabled = false;
+            busy = false;
+            fitStage();
+            showToast('✓ 证书已生成');
+          })
+          .catch(function () {
+            printer.classList.remove('working');
+            certificate.style.clipPath = 'none';
+            paperEdge.style.opacity = '0';
+            printBtn.disabled = false;
+            busy = false;
+          });
+      });
+    });
+  }
+
+  /* ============================================================
+     七、Canvas 绘制证书（导出图片用）
+     ============================================================ */
+  var MM = 96 / 25.4;
+
+  var W = 297 * MM;              // 1122.52
+  var H = 210 * MM;              // 793.70
+  var LEFT  = 24 * MM;           // 90.71
+  var RIGHT = W - 24 * MM;       // 1031.81
+  var CX    = W / 2;
+  var CONTENT_BOTTOM = H - 16 * MM;
+
+  var NAVY = '#12315c';
+  var GOLD = '#c9a227';
+  var INK  = '#2b3444';
+
+  var F_KAI   = '"STKaiti","KaiTi","楷体","Songti SC","SimSun",serif';
+  var F_SANS  = '"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif';
+  var F_SERIF = '"Times New Roman",Georgia,serif';
+  var F_MONO  = '"Consolas","Menlo","Courier New",monospace';
+
+  /* ---- 带字距的文字绘制 ---- */
+  function measureSpaced(ctx, text, ls) {
+    var w = 0;
+    for (var i = 0; i < text.length; i++) {
+      w += ctx.measureText(text[i]).width + ls;
+    }
+    return w - ls;
+  }
+  function drawSpaced(ctx, text, x, y, ls) {
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    var cx = x;
+    for (var i = 0; i < text.length; i++) {
+      ctx.fillText(text[i], cx, y);
+      cx += ctx.measureText(text[i]).width + ls;
+    }
+  }
+  function drawSpacedCenter(ctx, text, centerX, y, ls) {
+    var w = measureSpaced(ctx, text, ls);
+    drawSpaced(ctx, text, centerX - w / 2, y, ls);
+  }
+
+  /* ---- 右对齐多段文字 ---- */
+  function drawRightRuns(ctx, runs, rightX, baseY) {
+    var total = 0;
+    runs.forEach(function (r) {
+      ctx.font = r.font;
+      total += ctx.measureText(r.text).width;
+    });
+    var x = rightX - total;
+    runs.forEach(function (r) {
+      ctx.font = r.font;
+      ctx.fillStyle = r.color;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText(r.text, x, baseY);
+      x += ctx.measureText(r.text).width;
+    });
+  }
+
+  /* ---- 主绘制函数 ---- */
+  function buildCertificateCanvas(name, id) {
+    var SCALE = 2;
+    var canvas = document.createElement('canvas');
+    canvas.width  = Math.round(W * SCALE);
+    canvas.height = Math.round(H * SCALE);
+
+    var ctx = canvas.getContext('2d');
+    ctx.scale(SCALE, SCALE);
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+
+    /* ---------- 1. 白底 ---------- */
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, W, H);
+
+    /* ---------- 2. 双层边框 ---------- */
+    var FR = 8 * MM;
+    ctx.strokeStyle = 'rgba(18,49,92,.82)';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(FR, FR, W - FR * 2, H - FR * 2);
+
+    var FR2 = FR + 2.2 * MM;
+    ctx.strokeStyle = 'rgba(201,162,39,.72)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(FR2, FR2, W - FR2 * 2, H - FR2 * 2);
+
+    /* ---------- 3. 四角金色装饰 ---------- */
+    var CO = FR - 3;
+    var CL = 14, CT = 3;
+    ctx.fillStyle = 'rgba(201,162,39,.85)';
+    // 左上
+    ctx.fillRect(CO, CO, CL, CT);
+    ctx.fillRect(CO, CO, CT, CL);
+    // 右上
+    ctx.fillRect(W - CO - CL, CO, CL, CT);
+    ctx.fillRect(W - CO - CT, CO, CT, CL);
+    // 左下
+    ctx.fillRect(CO, H - CO - CT, CL, CT);
+    ctx.fillRect(CO, H - CO - CL, CT, CL);
+    // 右下
+    ctx.fillRect(W - CO - CL, H - CO - CT, CL, CT);
+    ctx.fillRect(W - CO - CT, H - CO - CL, CT, CL);
+
+    /* ---------- 4. 页眉 ---------- */
+    var y = 18 * MM;
+
+    // 宁波大学 · 小学教育
+    ctx.font = '12px ' + F_SANS;
+    ctx.fillStyle = '#96a1b3';
+    drawSpacedCenter(ctx, '宁波大学 · 小学教育', CX, y + 12 * 0.84, 5);
+    y += 14.4 + 5 * MM;
+
+    // 荣誉证书
+    var titleSize = 62;
+    var titleLH = titleSize * 1.12;
+    ctx.font = '700 ' + titleSize + 'px ' + F_KAI;
+    ctx.fillStyle = NAVY;
+    drawSpacedCenter(ctx, '荣誉证书', CX, y + titleLH / 2 + titleSize * 0.35, 17);
+    y += titleLH;
+
+    // CERTIFICATE OF HONOR
+    y += 3 * MM;
+    ctx.font = '10.5px ' + F_SERIF;
+    ctx.fillStyle = GOLD;
+    drawSpacedCenter(ctx, 'CERTIFICATE OF HONOR', CX, y + 10.5 * 0.84, 6);
+    y += 12.6;
+
+    // 分隔线 + 菱形
+    y += 6 * MM;
+    var ruleCy = y + 4.5;
+    var ruleW = 126 * MM;
+    var ruleX0 = CX - ruleW / 2;
+    var ruleX1 = CX + ruleW / 2;
+    var gap = 3 * MM;
+    var diamondW = 9;
+
+    var lineY = Math.round(ruleCy) + 0.5;
+
+    // 左线
+    var g1 = ctx.createLinearGradient(ruleX0, 0, CX - gap - diamondW / 2, 0);
+    g1.addColorStop(0, 'rgba(201,162,39,0)');
+    g1.addColorStop(1, 'rgba(201,162,39,.95)');
+    ctx.strokeStyle = g1;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(ruleX0, lineY);
+    ctx.lineTo(CX - gap - diamondW / 2, lineY);
+    ctx.stroke();
+
+    // 右线
+    var g2 = ctx.createLinearGradient(CX + gap + diamondW / 2, 0, ruleX1, 0);
+    g2.addColorStop(0, 'rgba(201,162,39,.95)');
+    g2.addColorStop(1, 'rgba(201,162,39,0)');
+    ctx.strokeStyle = g2;
+    ctx.beginPath();
+    ctx.moveTo(CX + gap + diamondW / 2, lineY);
+    ctx.lineTo(ruleX1, lineY);
+    ctx.stroke();
+
+    // 中间菱形
+    ctx.fillStyle = GOLD;
+    ctx.save();
+    ctx.translate(CX, lineY);
+    ctx.rotate(Math.PI / 4);
+    ctx.fillRect(-3.2, -3.2, 6.4, 6.4);
+    ctx.restore();
+
+    y += 9;
+
+    /* ---------- 5. 正文 ---------- */
+    y += 16 * MM;
+    var bodyTop = y;
+
+    var NF = 23;
+    var LH = NF * 2.2;              // 50.6
+    var FONT_N     = '23px ' + F_KAI;
+    var FONT_NAME  = '700 28px ' + F_KAI;
+    var FONT_AWARD = '700 23px ' + F_KAI;
+
+    var runs = [
+      { text: '兹有', kind: 'n' },
+      { text: name, kind: 'name' },
+      { text: '同学，作为“宁波大学小学教育平安喜乐小组”成员，在语文小组朗诵活动中表现优异，荣获', kind: 'n' },
+      { text: '银奖', kind: 'award' },
+      { text: '。特发此证，以资鼓励。', kind: 'n' }
+    ];
+
+    var items = [];        // 每个字：{ch, kind, x, baseline, w, line}
+    var lineIdx = 0;
+    var lineTop = bodyTop;
+    var x = LEFT + NF * 2; // 首行缩进 2em
+
+    function newline() {
+      lineIdx++;
+      lineTop = bodyTop + lineIdx * LH;
+      x = LEFT;
+    }
+    function baselineOf() {
+      return lineTop + LH / 2 + NF * 0.36;
+    }
+
+    runs.forEach(function (run) {
+      if (run.kind === 'name') {
+        ctx.font = FONT_NAME;
+        var tw = ctx.measureText(run.text).width;
+        var spanW = Math.max(110, tw + 20);
+
+        if (x + spanW > RIGHT && x > LEFT + 1) newline();
+
+        var innerX = x + 10 + (spanW - 20 - tw) / 2;
+        var bl = baselineOf();
+        var nx = innerX;
+
+        for (var i = 0; i < run.text.length; i++) {
+          var ch = run.text[i];
+          var cw = ctx.measureText(ch).width;
+          items.push({ ch: ch, kind: 'name', x: nx, baseline: bl, w: cw, line: lineIdx });
+          nx += cw;
+        }
+        x += spanW;
+
+      } else {
+        ctx.font = (run.kind === 'award') ? FONT_AWARD : FONT_N;
+        for (var j = 0; j < run.text.length; j++) {
+          var c2 = run.text[j];
+          var w2 = ctx.measureText(c2).width;
+          if (x + w2 > RIGHT && x > LEFT + 1) newline();
+          items.push({ ch: c2, kind: run.kind, x: x, baseline: baselineOf(), w: w2, line: lineIdx });
+          x += w2;
+        }
+      }
+    });
+
+    /* --- 5a. 绘制「银奖」金色底纹 --- */
+    (function () {
+      var i = 0;
+      while (i < items.length) {
+        if (items[i].kind !== 'award') { i++; continue; }
+        var j = i;
+        while (j + 1 < items.length &&
+               items[j + 1].kind === 'award' &&
+               items[j + 1].line === items[j].line) j++;
+
+        var seg = items.slice(i, j + 1);
+        var x0 = seg[0].x;
+        var x1 = seg[seg.length - 1].x + seg[seg.length - 1].w;
+        var by = seg[0].baseline;
+
+        // 内容盒估算
+        var contentTop = by - NF * 0.88;
+        var contentH   = NF * 1.15;
+
+        var bgTop = contentTop + contentH * 0.6;
+        var bgBot = contentTop + contentH;
+
+        ctx.fillStyle = 'rgba(201,162,39,.34)';
+        ctx.fillRect(x0 - 4, bgTop, (x1 - x0) + 8, bgBot - bgTop);
+
+        i = j + 1;
+      }
+    })();
+
+    /* --- 5b. 绘制正文字符 --- */
+    items.forEach(function (it) {
+      ctx.font = (it.kind === 'name') ? FONT_NAME
+               : (it.kind === 'award') ? FONT_AWARD : FONT_N;
+      ctx.fillStyle = (it.kind === 'n') ? INK : NAVY;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText(it.ch, it.x, it.baseline);
+    });
+
+    /* --- 5c. 姓名下方金色下划线 --- */
+    (function () {
+      var i = 0;
+      while (i < items.length) {
+        if (items[i].kind !== 'name') { i++; continue; }
+        var j = i;
+        while (j + 1 < items.length &&
+               items[j + 1].kind === 'name' &&
+               items[j + 1].line === items[j].line) j++;
+
+        var seg = items.slice(i, j + 1);
+        var x0 = seg[0].x;
+        var x1 = seg[seg.length - 1].x + seg[seg.length - 1].w;
+        var by = seg[0].baseline;
+
+        ctx.fillStyle = GOLD;
+        ctx.fillRect(x0 - 10, by + 7.5 - 1.25, (x1 - x0) + 20, 2.5);
+
+        i = j + 1;
+      }
+    })();
+
+    /* ---------- 6. 落款 ---------- */
+    var BOTTOM = CONTENT_BOTTOM;   // 733.23
+
+    // 右列：证书编号 / 日期 / 颁发单位
+    var R_RIGHT = RIGHT - 42 * MM;
+
+    // 证书编号（最底部）
+    var noLH = 15 * 1.65;                  // 24.75
+    var noBase = BOTTOM - noLH + 15 * 0.84;
+    drawRightRuns(ctx, [
+      { text: '证书编号：', font: '15px ' + F_KAI, color: '#8a94a6' },
+      { text: id,          font: '15px ' + F_MONO, color: '#5b6b82' }
+    ], R_RIGHT, noBase);
+
+    // 日期
+    var dLH = 17.5 * 1.65;                 // 28.875
+    var dBottom = BOTTOM - noLH - 2 * MM;
+    var dBase = dBottom - dLH + 17.5 * 0.84;
+    drawRightRuns(ctx, [
+      { text: '2026年10月13日', font: '17.5px ' + F_KAI, color: INK }
+    ], R_RIGHT, dBase);
+
+    // 颁发单位
+    var uBottom = dBottom - dLH - 2 * MM;
+    var uBase = uBottom - dLH + 17.5 * 0.84;
+    drawRightRuns(ctx, [
+      { text: '颁发单位：', font: '17.5px ' + F_KAI, color: '#8a94a6' },
+      { text: '宁波大学小学教育平安喜乐小组', font: '17.5px ' + F_KAI, color: INK }
+    ], R_RIGHT, uBase);
+
+    // 左列：指导老师（底部对齐，上抬 16mm）
+    var lLH = 18 * 1.65;
+    var lBottom = BOTTOM - 16 * MM;
+    var lBase = lBottom - lLH + 18 * 0.84;
+    ctx.textAlign = 'left';
+    ctx.font = '18px ' + F_KAI;
+    var lx = LEFT;
+    ctx.fillStyle = '#8a94a6';
+    ctx.fillText('指导老师：', lx, lBase);
+    lx += ctx.measureText('指导老师：').width;
+    ctx.fillStyle = INK;
+    ctx.fillText('赵静怡', lx, lBase);
+
+    /* ---------- 7. 电子印章 ---------- */
+    (function () {
+      var sealSize = 34 * MM;            // 128.5
+      var R = sealSize / 2;              // 64.25
+      var sealCx = RIGHT - R;            // 967.56
+      var sealCy = (BOTTOM + 4 * MM) - R; // 684.10
+
+      ctx.save();
+      ctx.globalAlpha = 0.82;
+
+      ctx.translate(sealCx, sealCy);
+      ctx.rotate(-13 * Math.PI / 180);
+
+      // 背景径向渐变
+      var rg = ctx.createRadialGradient(0, 0, 0, 0, 0, R * Math.SQRT2);
+      rg.addColorStop(0,    'rgba(198,40,40,0.07)');
+      rg.addColorStop(0.62, 'rgba(198,40,40,0.03)');
+      rg.addColorStop(1,    'rgba(198,40,40,0)');
+      ctx.fillStyle = rg;
+      ctx.beginPath();
+      ctx.arc(0, 0, R, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 外圈
+      ctx.strokeStyle = 'rgba(198,40,40,0.78)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(0, 0, R - 1.5, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // 内圈
+      var innerInset = 2.6 * MM;         // 9.83
+      ctx.strokeStyle = 'rgba(198,40,40,0.52)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(0, 0, R - innerInset - 0.5, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // 文字（两行）
+      var fSize = 19;
+      var lh = fSize * 1.05;
+      var totalH = lh * 2;
+      var topY = -totalH / 2;
+
+      ctx.font = '700 ' + fSize + 'px ' + F_KAI;
+      ctx.fillStyle = 'rgba(198,40,40,0.9)';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+
+      drawSpacedCenter(ctx, '平安喜', 0, topY + fSize * 0.84, 1.5);
+      drawSpacedCenter(ctx, '乐小组', 0, topY + lh + fSize * 0.84, 1.5);
+
+      ctx.restore();
+    })();
+
+    return canvas;
+  }
+
+  /* ============================================================
+     八、保存图片
+     ============================================================ */
+  function saveImage() {
+    if (busy) return;
+
+    var name = currentName || nameInput.value.trim();
+    var id   = currentId   || idInput.value.trim();
+
+    if (!name || !id) {
+      showToast('请先填写姓名和学号');
+      return;
+    }
+
+    saveBtn.disabled = true;
+    var oldText = saveBtn.textContent;
+    saveBtn.textContent = '生成中…';
+
+    try {
+      var canvas = buildCertificateCanvas(name, id);
+      var filename = '荣誉证书_' + name + '_' + id + '.png';
+
+      if (canvas.toBlob) {
+        canvas.toBlob(function (blob) {
+          saveBtn.disabled = false;
+          saveBtn.textContent = oldText;
+
+          if (!blob) {
+            openDataUrl(canvas.toDataURL('image/png'), filename);
+            return;
+          }
+
+          var url = URL.createObjectURL(blob);
+          triggerDownload(url, filename);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
+          showToast('✓ 证书图片已保存，请查看下载目录');
+        }, 'image/png');
+      } else {
+        saveBtn.disabled = false;
+        saveBtn.textContent = oldText;
+        openDataUrl(canvas.toDataURL('image/png'), filename);
+        showToast('✓ 证书图片已生成');
+      }
+    } catch (err) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = oldText;
+      showToast('生成失败，请更换浏览器重试');
+    }
+  }
+
+  function triggerDownload(url, filename) {
+    var a = document.createElement('a');
+    if (typeof a.download === 'undefined') {
+      // 不支持 download 属性（如部分 iOS）
+      window.open(url, '_blank');
+      return;
+    }
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  function openDataUrl(dataUrl, filename) {
+    var w = window.open('', '_blank');
+    if (!w) {
+      showToast('请允许弹出窗口以保存图片');
+      return;
+    }
+    w.document.write(
+      '<title>' + filename + '</title>' +
+      '<body style="margin:0;background:#e8edf5;display:flex;align-items:center;justify-content:center;min-height:100vh;">' +
+      '<img src="' + dataUrl + '" style="max-width:100%;height:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);" alt="荣誉证书">' +
+      '<p style="position:fixed;bottom:16px;left:0;right:0;text-align:center;font:13px sans-serif;color:#5b6b82;">长按图片或右键选择「保存图片」</p>' +
+      '</body>'
+    );
+    w.document.close();
+  }
+
+  /* ============================================================
+     九、重新填写
+     ============================================================ */
+  function backToForm() {
+    if (busy) return;
+
+    document.body.classList.remove('cert-ready');
+
+    // 证书向上收起
+    certificate.style.clipPath = 'inset(0 0 100% 0)';
+
+    setTimeout(function () {
+      document.body.classList.remove('showing-cert');
+      certificate.style.clipPath = 'none';
+      seal.classList.remove('stamping');
+      paperEdge.style.opacity = '0';
+      printer.classList.remove('working');
+      nameInput.focus();
+    }, 320);
+  }
+
+  /* ============================================================
+     十、事件绑定
+     ============================================================ */
+  printBtn.addEventListener('click', runPrint);
+  saveBtn.addEventListener('click', saveImage);
+  againBtn.addEventListener('click', backToForm);
+
+  [nameInput, idInput].forEach(function (input) {
+    input.addEventListener('input', refreshPreview);
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.keyCode === 13) {
+        e.preventDefault();
+        if (input === nameInput) {
+          idInput.focus();
+        } else {
+          input.blur();
+          runPrint();
+        }
+      }
+    });
+  });
+
+  /* ============================================================
+     十一、初始化
+     ============================================================ */
+  function init() {
+    try {
+      var sn = localStorage.getItem(STORE_NAME);
+      var si = localStorage.getItem(STORE_ID);
+      if (sn) nameInput.value = sn;
+      if (si) idInput.value   = si;
+    } catch (e) { /* 忽略 */ }
+
+    refreshPreview();
+
+    // 预测量（此时 print-unit 隐藏，用常量兜底）
+    natW = 297 * MM;
+    natH = 210 * MM;
+
+    setTimeout(function () { nameInput.focus(); }, 420);
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        measure();
+        fitStage();
+      }).catch(function () {});
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+</body>
+</html>
